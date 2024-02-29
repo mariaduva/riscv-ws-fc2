@@ -1,0 +1,291 @@
+
+pr2_b.elf:     file format elf32-littleriscv
+pr2_b.elf
+architecture: riscv:rv32, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x00000000
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x00000000 paddr 0x00000000 align 2**12
+         filesz 0x000001d8 memsz 0x000001d8 flags r-x
+    LOAD off    0x00002000 vaddr 0x00010000 paddr 0x00010000 align 2**12
+         filesz 0x0000001c memsz 0x00000040 flags rw-
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .text             000001d8  00000000  00000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data             0000001c  00010000  00010000  00002000  2**0  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss              00000024  0001001c  0001001c  0000201c  2**0  ALLOC
+  3 .riscv.attributes 00000021  00000000  00000000  0000201c  2**0  CONTENTS, READONLY
+  4 .comment          00000012  00000000  00000000  0000203d  2**0  CONTENTS, READONLY
+  5 .debug_line       000000fd  00000000  00000000  0000204f  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_info       00000026  00000000  00000000  0000214c  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  7 .debug_abbrev     00000014  00000000  00000000  00002172  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  8 .debug_aranges    00000020  00000000  00000000  00002188  2**3  CONTENTS, READONLY, DEBUGGING, OCTETS
+  9 .debug_str        00000037  00000000  00000000  000021a8  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+SYMBOL TABLE:
+00000000 l    d  .text	00000000 .text
+00010000 l    d  .data	00000000 .data
+0001001c l    d  .bss	00000000 .bss
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    df *ABS*	00000000 ./pr2_b.o
+00000007 l       *ABS*	00000000 N
+00010000 l       *ABS*	00000000 INT_MAX
+00010000 l       .data	00000000 V
+0001001c l       .bss	00000000 W
+00010038 l       .bss	00000000 min
+0001003c l       .bss	00000000 ind
+00000028 l       .text	00000000 for_j
+00000090 l       .text	00000000 end_for_j
+00000038 l       .text	00000000 for_i
+00000060 l       .text	00000000 end_for_i
+0000004c l       .text	00000000 if
+00000058 l       .text	00000000 end_if
+00000000 l    df *ABS*	00000000 index.c
+00000000 l    df *ABS*	00000000 strchr.c
+00000094 g     F .text	00000004 index
+00000000 g       .text	00000000 main
+00020000 g       *ABS*	00000000 _stack
+00000098 g     F .text	00000140 strchr
+
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+main():
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:53
+min: .space 4
+ind: .space 4
+
+.text
+main:
+	la s3, V 				// s3 = @base V
+   0:	00010997          	auipc	s3,0x10
+   4:	00098993          	mv	s3,s3
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:54
+	la s4, W 				// s4 = @base W
+   8:	00010a17          	auipc	s4,0x10
+   c:	014a0a13          	addi	s4,s4,20 # 1001c <W>
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:55
+	li t3, 0				// t3 = j = 0
+  10:	00000e13          	li	t3,0
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:56
+    li s1, N        		// s1 = N = 8
+  14:	00700493          	li	s1,7
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:57
+    la t1, min				// t1 = @base min
+  18:	00010317          	auipc	t1,0x10
+  1c:	02030313          	addi	t1,t1,32 # 10038 <min>
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:58
+    la t2, index			// t2 = @base index
+  20:	00000397          	auipc	t2,0x0
+  24:	07438393          	addi	t2,t2,116 # 94 <index>
+
+00000028 <for_j>:
+for_j():
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:61
+
+for_j:
+    bge t3, s1, end_for_j	// Salimos del bucle si j >= N
+  28:	069e5463          	bge	t3,s1,90 <end_for_j>
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:62
+    li a1, INT_MAX			// t4 = INT_MAX
+  2c:	000105b7          	lui	a1,0x10
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:63
+    sw a1, 0(t1)			// Almacenamos en memoria el contenido de a1
+  30:	00b32023          	sw	a1,0(t1)
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:64
+    li t4, 0				// t4 = i = 0
+  34:	00000e93          	li	t4,0
+
+00000038 <for_i>:
+for_i():
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:67
+
+for_i:
+	bge t4,s1, end_for_i	// Salimos del bucle si i >= N
+  38:	029ed463          	bge	t4,s1,60 <end_for_i>
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:68
+	li t5, 0				// t5 = 0
+  3c:	00000f13          	li	t5,0
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:69
+	slli t5, t4, 2			// t5 = Desplazamiento de 2 bits (i * 4)
+  40:	002e9f13          	slli	t5,t4,0x2
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:70
+    add t5, t5, s3 			// t5 = @efectiva de V[i]
+  44:	013f0f33          	add	t5,t5,s3
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:71
+	lw a0, 0(t5)			// a0 = V[i]
+  48:	000f2503          	lw	a0,0(t5)
+
+0000004c <if>:
+if():
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:74
+
+if:
+	bge a0, a1, end_if 		// Salta si a0 >= a1
+  4c:	00b55663          	bge	a0,a1,58 <end_if>
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:76
+	//sw s2, 0(t2) 			// Almacenamos en memoria el contenido de s2
+	mv a1, a0  				// min = V[i]
+  50:	00050593          	mv	a1,a0
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:77
+	mv a2, t4 				// index = i
+  54:	000e8613          	mv	a2,t4
+
+00000058 <end_if>:
+end_if():
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:80
+
+end_if:
+	addi t4, t4, 1			// i++
+  58:	001e8e93          	addi	t4,t4,1
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:81
+	j for_i
+  5c:	fddff06f          	j	38 <for_i>
+
+00000060 <end_for_i>:
+end_for_i():
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:84
+
+end_for_i:
+	li t6, 0				// t6 = 0 desplazamiento de W
+  60:	00000f93          	li	t6,0
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:85
+	slli t6, t3, 2			// t6 = Desplazamiento de 2 bits (j * 4)
+  64:	002e1f93          	slli	t6,t3,0x2
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:86
+	add t6, t6, s4			// t6 = @base W + salto
+  68:	014f8fb3          	add	t6,t6,s4
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:88
+
+	li t5, 0 				// t5 = 0 desplazamiento de V
+  6c:	00000f13          	li	t5,0
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:89
+	slli t5, a2, 2 			// t6 = Desplazamiento de 2 bits (index * 4)
+  70:	00261f13          	slli	t5,a2,0x2
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:90
+	add t5, t5, s3 			// t5 = @efectiva de V[index]
+  74:	013f0f33          	add	t5,t5,s3
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:91
+	lw a0, 0(t5)			// a0 = V[index]
+  78:	000f2503          	lw	a0,0(t5)
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:93
+
+	sw a0, 0(t6)			// W[j] = V[index]
+  7c:	00afa023          	sw	a0,0(t6)
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:94
+	li a0, INT_MAX			// a0 = INT_MAX
+  80:	00010537          	lui	a0,0x10
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:95
+	sw a0, 0(t5)			// V[index] = INT_MAX
+  84:	00af2023          	sw	a0,0(t5)
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:97
+
+	addi t3, t3, 1 			// j++
+  88:	001e0e13          	addi	t3,t3,1
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:98
+	j for_j
+  8c:	f9dff06f          	j	28 <for_j>
+
+00000090 <end_for_j>:
+end_for_j():
+C:\FC2practicasWS\pr2_b\Debug/../pr2_b.asm:101
+
+end_for_j:
+	j .
+  90:	0000006f          	j	90 <end_for_j>
+
+00000094 <index>:
+index():
+  94:	0040006f          	j	98 <strchr>
+
+00000098 <strchr>:
+strchr():
+  98:	0ff5f693          	andi	a3,a1,255
+  9c:	00357793          	andi	a5,a0,3
+  a0:	0c068063          	beqz	a3,160 <strchr+0xc8>
+  a4:	00078e63          	beqz	a5,c0 <strchr+0x28>
+  a8:	00054783          	lbu	a5,0(a0) # 10000 <INT_MAX>
+  ac:	0a078663          	beqz	a5,158 <strchr+0xc0>
+  b0:	0ad78663          	beq	a5,a3,15c <strchr+0xc4>
+  b4:	00150513          	addi	a0,a0,1
+  b8:	00357793          	andi	a5,a0,3
+  bc:	fe0796e3          	bnez	a5,a8 <strchr+0x10>
+  c0:	0ff5f593          	andi	a1,a1,255
+  c4:	00859793          	slli	a5,a1,0x8
+  c8:	00f5e5b3          	or	a1,a1,a5
+  cc:	00052703          	lw	a4,0(a0)
+  d0:	01059313          	slli	t1,a1,0x10
+  d4:	00b36333          	or	t1,t1,a1
+  d8:	feff0837          	lui	a6,0xfeff0
+  dc:	00e34633          	xor	a2,t1,a4
+  e0:	eff80813          	addi	a6,a6,-257 # fefefeff <_stack+0xfefcfeff>
+  e4:	010607b3          	add	a5,a2,a6
+  e8:	010705b3          	add	a1,a4,a6
+  ec:	fff64613          	not	a2,a2
+  f0:	fff74713          	not	a4,a4
+  f4:	00c7f7b3          	and	a5,a5,a2
+  f8:	00e5f733          	and	a4,a1,a4
+  fc:	808088b7          	lui	a7,0x80808
+ 100:	00e7e7b3          	or	a5,a5,a4
+ 104:	08088893          	addi	a7,a7,128 # 80808080 <_stack+0x807e8080>
+ 108:	0117f7b3          	and	a5,a5,a7
+ 10c:	02079a63          	bnez	a5,140 <strchr+0xa8>
+ 110:	00452703          	lw	a4,4(a0)
+ 114:	00450513          	addi	a0,a0,4
+ 118:	00674633          	xor	a2,a4,t1
+ 11c:	010707b3          	add	a5,a4,a6
+ 120:	010605b3          	add	a1,a2,a6
+ 124:	fff74713          	not	a4,a4
+ 128:	fff64613          	not	a2,a2
+ 12c:	00e7f7b3          	and	a5,a5,a4
+ 130:	00c5f633          	and	a2,a1,a2
+ 134:	00c7e7b3          	or	a5,a5,a2
+ 138:	0117f7b3          	and	a5,a5,a7
+ 13c:	fc078ae3          	beqz	a5,110 <strchr+0x78>
+ 140:	00054783          	lbu	a5,0(a0)
+ 144:	00078a63          	beqz	a5,158 <strchr+0xc0>
+ 148:	08f68663          	beq	a3,a5,1d4 <strchr+0x13c>
+ 14c:	00154783          	lbu	a5,1(a0)
+ 150:	00150513          	addi	a0,a0,1
+ 154:	fe079ae3          	bnez	a5,148 <strchr+0xb0>
+ 158:	00000513          	li	a0,0
+ 15c:	00008067          	ret
+ 160:	00078c63          	beqz	a5,178 <strchr+0xe0>
+ 164:	00054783          	lbu	a5,0(a0)
+ 168:	fe078ae3          	beqz	a5,15c <strchr+0xc4>
+ 16c:	00150513          	addi	a0,a0,1
+ 170:	00357793          	andi	a5,a0,3
+ 174:	fe0798e3          	bnez	a5,164 <strchr+0xcc>
+ 178:	00052703          	lw	a4,0(a0)
+ 17c:	feff0637          	lui	a2,0xfeff0
+ 180:	eff60613          	addi	a2,a2,-257 # fefefeff <_stack+0xfefcfeff>
+ 184:	00c707b3          	add	a5,a4,a2
+ 188:	808086b7          	lui	a3,0x80808
+ 18c:	fff74713          	not	a4,a4
+ 190:	00e7f7b3          	and	a5,a5,a4
+ 194:	08068693          	addi	a3,a3,128 # 80808080 <_stack+0x807e8080>
+ 198:	00d7f7b3          	and	a5,a5,a3
+ 19c:	02079063          	bnez	a5,1bc <strchr+0x124>
+ 1a0:	00452703          	lw	a4,4(a0)
+ 1a4:	00450513          	addi	a0,a0,4
+ 1a8:	00c707b3          	add	a5,a4,a2
+ 1ac:	fff74713          	not	a4,a4
+ 1b0:	00e7f7b3          	and	a5,a5,a4
+ 1b4:	00d7f7b3          	and	a5,a5,a3
+ 1b8:	fe0784e3          	beqz	a5,1a0 <strchr+0x108>
+ 1bc:	00054783          	lbu	a5,0(a0)
+ 1c0:	f8078ee3          	beqz	a5,15c <strchr+0xc4>
+ 1c4:	00154783          	lbu	a5,1(a0)
+ 1c8:	00150513          	addi	a0,a0,1
+ 1cc:	fe079ce3          	bnez	a5,1c4 <strchr+0x12c>
+ 1d0:	00008067          	ret
+ 1d4:	00008067          	ret

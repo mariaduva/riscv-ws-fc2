@@ -1,0 +1,140 @@
+
+pr1_0.elf:     file format elf32-littleriscv
+pr1_0.elf
+architecture: riscv:rv32, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x00000000
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x00000000 paddr 0x00000000 align 2**12
+         filesz 0x0000005c memsz 0x0000005c flags r-x
+    LOAD off    0x00002000 vaddr 0x00010000 paddr 0x00010000 align 2**12
+         filesz 0x00000050 memsz 0x00000078 flags rw-
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .text             0000005c  00000000  00000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data             00000050  00010000  00010000  00002000  2**0  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss              00000028  00010050  00010050  00002050  2**0  ALLOC
+  3 .riscv.attributes 0000001f  00000000  00000000  00002050  2**0  CONTENTS, READONLY
+  4 .debug_line       000000af  00000000  00000000  0000206f  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  5 .debug_info       00000026  00000000  00000000  0000211e  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_abbrev     00000014  00000000  00000000  00002144  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  7 .debug_aranges    00000020  00000000  00000000  00002158  2**3  CONTENTS, READONLY, DEBUGGING, OCTETS
+  8 .debug_str        00000037  00000000  00000000  00002178  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+SYMBOL TABLE:
+00000000 l    d  .text	00000000 .text
+00010000 l    d  .data	00000000 .data
+00010050 l    d  .bss	00000000 .bss
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    df *ABS*	00000000 ./pr1_0.o
+0000000a l       *ABS*	00000000 N
+00010000 l       .data	00000000 A
+00010028 l       .data	00000000 B
+00010050 l       .bss	00000000 mayor
+00000024 l       .text	00000000 for
+00000058 l       .text	00000000 efor
+00000040 l       .text	00000000 if
+0000004c l       .text	00000000 eif
+00000000 g       .text	00000000 main
+00020000 g       *ABS*	00000000 _stack
+
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+main():
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:30
+B: .word 23,5,-5,-30,1,12,8,11,-17,10
+.bss
+	mayor: .space N*4
+.text
+main :
+	li s1,N // s1 -> n
+   0:	00a00493          	li	s1,10
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:31
+	mv s2,zero // s2 -> i
+   4:	00000913          	li	s2,0
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:32
+	la s3,mayor // s3-> mayor
+   8:	00010997          	auipc	s3,0x10
+   c:	04898993          	addi	s3,s3,72 # 10050 <mayor>
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:33
+	la s4,A // s4-> A
+  10:	00010a17          	auipc	s4,0x10
+  14:	ff0a0a13          	addi	s4,s4,-16 # 10000 <A>
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:34
+	la s5,B // s5-> B
+  18:	00010a97          	auipc	s5,0x10
+  1c:	010a8a93          	addi	s5,s5,16 # 10028 <B>
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:35
+	li t1,0 // t1-> salto
+  20:	00000313          	li	t1,0
+
+00000024 <for>:
+for():
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:38
+
+for:
+	beq s2,s1,efor
+  24:	02990a63          	beq	s2,s1,58 <efor>
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:39
+	slli t1,s2,2 // guarda el salto de cada iteración
+  28:	00291313          	slli	t1,s2,0x2
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:41
+
+	add s7,s4,t1 // dir A[i] -> s7
+  2c:	006a0bb3          	add	s7,s4,t1
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:42
+	sw s7,0(s8) // A[i] -> s8
+  30:	017c2023          	sw	s7,0(s8)
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:44
+
+	add s9,s5,t1 // dir B[i] -> s9
+  34:	006a8cb3          	add	s9,s5,t1
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:45
+	sw s9,0(s10) // B[i] -> s10
+  38:	019d2023          	sw	s9,0(s10)
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:47
+
+	add s11,s3,t1 // dir mayor[i] -> s11
+  3c:	00698db3          	add	s11,s3,t1
+
+00000040 <if>:
+if():
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:49
+if:
+	bgt s10,s8,eif // B[i] > A[i]
+  40:	01ac4663          	blt	s8,s10,4c <eif>
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:50
+	sw s8,0(s11) // mayor[i] = A[i]
+  44:	018da023          	sw	s8,0(s11)
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:51
+	j 8
+  48:	fc1ff06f          	j	8 <main+0x8>
+
+0000004c <eif>:
+eif():
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:53
+eif:
+	sw s11,0(s10) // mayor[i] = B[i]
+  4c:	01bd2023          	sw	s11,0(s10)
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:54
+	addi s2,s2,1 // i++
+  50:	00190913          	addi	s2,s2,1
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:55
+	j for
+  54:	fd1ff06f          	j	24 <for>
+
+00000058 <efor>:
+efor():
+C:\FC2practicasWS\pr1_0\Debug/../pr1_0.asm:57
+efor:
+	j .
+  58:	0000006f          	j	58 <efor>

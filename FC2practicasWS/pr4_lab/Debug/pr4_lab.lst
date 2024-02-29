@@ -1,0 +1,31 @@
+
+pr4_lab.elf:     file format elf32-littleriscv
+pr4_lab.elf
+architecture: riscv:rv32, flags 0x00000012:
+EXEC_P, HAS_SYMS
+start address 0x00000000
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .riscv.attributes 00000021  00000000  00000000  00000034  2**0  CONTENTS, READONLY
+  1 .comment          00000012  00000000  00000000  00000055  2**0  CONTENTS, READONLY
+  2 .debug_info       00000021  00000000  00000000  00000067  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  3 .debug_abbrev     00000013  00000000  00000000  00000088  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  4 .debug_aranges    00000018  00000000  00000000  0000009b  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  5 .debug_macro      000006f9  00000000  00000000  000000b3  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_line       0000002d  00000000  00000000  000007ac  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  7 .debug_str        000023b2  00000000  00000000  000007d9  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+SYMBOL TABLE:
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_macro	00000000 .debug_macro
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    df *ABS*	00000000 pr4_lab.c
+00000000         *UND*	00000000 main
+00020000 g       *ABS*	00000000 _stack
+
+

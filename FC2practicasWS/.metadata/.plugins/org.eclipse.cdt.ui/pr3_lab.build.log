@@ -1,0 +1,29 @@
+21:02:17 **** Incremental Build of configuration Debug for project pr3_lab ****
+make all 
+'Building file: ../pr3_lab.asm'
+'Invoking: GNU RISC-V Cross Assembler'
+riscv64-unknown-elf-gcc -march=rv32im -mabi=ilp32 -msmall-data-limit=8 -mno-save-restore -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -x assembler-with-cpp -MMD -MP -MF"pr3_lab.d" -MT"pr3_lab.o" -c -o "pr3_lab.o" "../pr3_lab.asm"
+'Finished building: ../pr3_lab.asm'
+' '
+'Building target: pr3_lab.elf'
+'Invoking: GNU RISC-V Cross C Linker'
+riscv64-unknown-elf-gcc -march=rv32im -mabi=ilp32 -msmall-data-limit=8 -mno-save-restore -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T ../ldscript.ld -nostartfiles -Wl,-Map,"pr3_lab.map" -o "pr3_lab.elf"  ./pr3_lab.o   
+'Finished building target: pr3_lab.elf'
+' '
+'Invoking: GNU RISC-V Cross Create Flash Image'
+riscv64-unknown-elf-objcopy -O ihex "pr3_lab.elf"  "pr3_lab.hex"
+'Finished building: pr3_lab.hex'
+' '
+'Invoking: GNU RISC-V Cross Create Listing'
+riscv64-unknown-elf-objdump --source --all-headers --demangle --disassemble --line-numbers --wide "pr3_lab.elf" > "pr3_lab.lst"
+'Finished building: pr3_lab.lst'
+' '
+'Invoking: GNU RISC-V Cross Print Size'
+riscv64-unknown-elf-size --format=berkeley "pr3_lab.elf"
+   text	   data	    bss	    dec	    hex	filename
+    232	     32	      4	    268	    10c	pr3_lab.elf
+'Finished building: pr3_lab.siz'
+' '
+
+21:02:18 Build Finished. 0 errors, 0 warnings. (took 866ms)
+

@@ -1,0 +1,16 @@
+
+pr1_lab.elf:     file format elf32-littleriscv
+pr1_lab.elf
+architecture: riscv:rv32, flags 0x00000012:
+EXEC_P, HAS_SYMS
+start address 0x00000000
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .riscv.attributes 0000001f  00000000  00000000  00000034  2**0  CONTENTS, READONLY
+SYMBOL TABLE:
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000         *UND*	00000000 main
+00020000 g       *ABS*	00000000 _stack
+
+

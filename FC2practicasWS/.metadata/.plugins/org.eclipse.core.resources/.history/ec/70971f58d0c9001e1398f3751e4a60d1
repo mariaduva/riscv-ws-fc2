@@ -1,0 +1,38 @@
+/*---------------------------------------------------------------------
+**
+**  Fichero:
+**    pr1_a.asm  19/10/2022
+**
+**    (c) Daniel Báscones García
+**    Fundamentos de Computadores II
+**    Facultad de Informática. Universidad Complutense de Madrid
+**
+**  Propósito:
+**    Fichero de código para la práctica 1a
+**
+**  Notas de diseño:
+**
+**	# define N 10
+**	int res = 0;
+**	for (int i = 0; i < N ; i ++) {
+**		res += i ;
+**	}
+**
+**-------------------------------------------------------------------*/
+.global main
+.equ N, 10 //defino la constante N
+
+.bss
+	res: 	.space 4 //reservo espacio para el resultado
+//programa
+.text
+main:
+	li s1,n // s1 es n
+	li s2,zero // s2 es i
+	li s3, zero // s3 es res
+for:
+
+
+efor:
+	j .
+.end

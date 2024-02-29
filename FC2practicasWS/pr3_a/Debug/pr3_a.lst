@@ -1,0 +1,220 @@
+
+pr3_a.elf:     file format elf32-littleriscv
+pr3_a.elf
+architecture: riscv:rv32, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x00000000
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x00000000 paddr 0x00000000 align 2**12
+         filesz 0x000000a0 memsz 0x000000a0 flags r-x
+    LOAD off    0x00002000 vaddr 0x00010000 paddr 0x00010000 align 2**12
+         filesz 0x00000020 memsz 0x00000024 flags rw-
+
+Sections:
+Idx Name              Size      VMA       LMA       File off  Algn  Flags
+  0 .text             000000a0  00000000  00000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data             00000020  00010000  00010000  00002000  2**0  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss              00000004  00010020  00010020  00002020  2**0  ALLOC
+  3 .riscv.attributes 0000001f  00000000  00000000  00002020  2**0  CONTENTS, READONLY
+  4 .debug_line       00000115  00000000  00000000  0000203f  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  5 .debug_info       00000026  00000000  00000000  00002154  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_abbrev     00000014  00000000  00000000  0000217a  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  7 .debug_aranges    00000020  00000000  00000000  00002190  2**3  CONTENTS, READONLY, DEBUGGING, OCTETS
+  8 .debug_str        00000037  00000000  00000000  000021b0  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+SYMBOL TABLE:
+00000000 l    d  .text	00000000 .text
+00010000 l    d  .data	00000000 .data
+00010020 l    d  .bss	00000000 .bss
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    df *ABS*	00000000 ./pr3_a.o
+00000004 l       *ABS*	00000000 N
+00010000 l       .data	00000000 A
+00010010 l       .data	00000000 B
+00010020 l       .bss	00000000 res
+00000034 l       .text	00000000 while
+00000070 l       .text	00000000 ewhile
+00000084 l       .text	00000000 mul
+00000070 l       .text	00000000 if
+00000078 l       .text	00000000 eif
+00000080 l       .text	00000000 fin
+00000094 l       .text	00000000 emul
+00000000 g       .text	00000000 main
+00020000 g       *ABS*	00000000 _stack
+
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+main():
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:62
+	res:  .space 4
+
+.text
+main:
+
+	la s1,A 		//s1 = @base A
+   0:	00010497          	auipc	s1,0x10
+   4:	00048493          	mv	s1,s1
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:63
+	la s2, B		//s2 = @base B
+   8:	00010917          	auipc	s2,0x10
+   c:	00890913          	addi	s2,s2,8 # 10010 <B>
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:64
+	la t0,res		//t0 = @base res
+  10:	00010297          	auipc	t0,0x10
+  14:	01028293          	addi	t0,t0,16 # 10020 <res>
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:66
+
+	mv t1,zero		//t1 = res = 0
+  18:	00000313          	li	t1,0
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:67
+	mv t5,zero		//t5 = normA = 0
+  1c:	00000f13          	li	t5,0
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:68
+	mv t6,zero		//t6 = normB =0
+  20:	00000f93          	li	t6,0
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:69
+	mv t2,zero		//t2 = i = 0
+  24:	00000393          	li	t2,0
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:70
+	li s3,N			//s3 = N
+  28:	00400993          	li	s3,4
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:72
+
+	mv t3,zero		//t3 = efectivaA = 0
+  2c:	00000e13          	li	t3,0
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:73
+	mv t4,zero		//t4 = efectivaB = 0
+  30:	00000e93          	li	t4,0
+
+00000034 <while>:
+while():
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:82
+ * de sus productos escalares en t5 (NormA) y t6 (NormB)
+ */
+while:
+
+
+	bge t2,s3,ewhile	//Salimos del while si i>=N
+  34:	0333de63          	bge	t2,s3,70 <ewhile>
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:83
+	slli t3,t2,2		//"Salto" A
+  38:	00239e13          	slli	t3,t2,0x2
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:84
+	add t3,t3,s1		//Actualizamos efectiva A
+  3c:	009e0e33          	add	t3,t3,s1
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:85
+	slli t4,t2,2		//"Salto" B
+  40:	00239e93          	slli	t4,t2,0x2
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:86
+	add t4,t4,s2		//Actualizamos efectiva B
+  44:	012e8eb3          	add	t4,t4,s2
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:88
+
+	lw a1,0(t3)			//a1 = A[i]
+  48:	000e2583          	lw	a1,0(t3)
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:89
+	mv a2, a1			//a2 = A[i]
+  4c:	00058613          	mv	a2,a1
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:91
+
+	call mul
+  50:	034000ef          	jal	ra,84 <mul>
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:92
+	add t5,t5,a0		//NormaA += res
+  54:	00af0f33          	add	t5,t5,a0
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:94
+
+	lw a2,0(t4)			//a2 = B[i]
+  58:	000ea603          	lw	a2,0(t4)
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:95
+	mv a1, a2			//a1 = B[i]
+  5c:	00060593          	mv	a1,a2
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:97
+
+	call mul
+  60:	024000ef          	jal	ra,84 <mul>
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:98
+	add t6,t6,a0		//NormaB += res
+  64:	00af8fb3          	add	t6,t6,a0
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:100
+
+	addi t2,t2,1		//i++
+  68:	00138393          	addi	t2,t2,1
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:101
+	j while
+  6c:	fc9ff06f          	j	34 <while>
+
+00000070 <ewhile>:
+ewhile():
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:109
+
+/**
+ * Comparamos ambos productos ecalares y almacenanos solo el mayor en t1
+ */
+if:
+	bge t6,t5,eif
+  70:	01efd463          	bge	t6,t5,78 <eif>
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:110
+	mv t1,t6
+  74:	000f8313          	mv	t1,t6
+
+00000078 <eif>:
+eif():
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:113
+
+eif:
+	mv t1,t5
+  78:	000f0313          	mv	t1,t5
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:114
+	sw t1, 0(t0)
+  7c:	0062a023          	sw	t1,0(t0)
+
+00000080 <fin>:
+fin():
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:117
+
+fin:
+	j .
+  80:	0000006f          	j	80 <fin>
+
+00000084 <mul>:
+mul():
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:130
+ * @return El resultado de la multiplicación
+ * NOTA: a2 siempre pasa a ser 0
+ */
+
+mul:
+	bge zero,a2,emul
+  84:	00c05863          	blez	a2,94 <emul>
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:131
+	add t1,t1,a1
+  88:	00b30333          	add	t1,t1,a1
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:132
+	addi a2,a2,-1
+  8c:	fff60613          	addi	a2,a2,-1
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:133
+	j mul
+  90:	ff5ff06f          	j	84 <mul>
+
+00000094 <emul>:
+emul():
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:136
+
+emul:
+	mv a0,t1		//a0 = res
+  94:	00030513          	mv	a0,t1
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:137
+	mv t1,zero		//Reseteamos t1
+  98:	00000313          	li	t1,0
+C:\FC2practicasWS\pr3_a\Debug/../pr3_a.asm:138
+	ret
+  9c:	00008067          	ret

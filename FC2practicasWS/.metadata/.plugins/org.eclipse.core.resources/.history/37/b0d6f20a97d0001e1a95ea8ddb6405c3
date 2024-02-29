@@ -1,0 +1,101 @@
+/*---------------------------------------------------------------------
+**
+**  Fichero:
+**    pr2_b.asm  19/02/2024
+**
+**  Notas de diseño:
+**
+**	# define N 8
+**	# define INT_MAX 65536
+**	int V [ N ] = { -7 ,3 , -9 ,8 ,15 , -16 ,0 ,3};
+**	int W [ N ];
+**	int min , index ;
+**	for ( j = 0; j < N ; j ++) {
+**		min = INT_MAX ;
+**		for ( i = 0; i < N ; i ++) {
+**			if ( V [ i ] < min ) {
+**				min = V [ i ];
+**				index = i ;
+**			}
+**		}
+**		W [ j ] = V [ index ];
+**		V [ index ] = INT_MAX ;
+**	}
+**
+** VARIABLES
+**
+** index	--> t5
+** INT_MAX	--> t4
+** N		--> t1
+** i 		-->	t5
+** j		--> t0
+**(base) V	--> s2
+**(base) W	--> s2
+**(base)ind	--> t3
+**(base)min --> t2
+** V[i]		--> t4
+** W[j]		--> t4
+** V[index]	--> t4
+**
+**-------------------------------------------------------------------*/
+
+.global main
+.equ N , 8
+.equ INT_MAX , 65536
+
+.data
+V: 	 .word -7 ,3 , -9 ,8 ,15 , -16 ,0 ,3
+.bss
+W: 	 .space N *4
+min: .space 4
+ind: .space 4
+
+.text
+main:
+	la s0, V 				// s0 = @base V
+	li s1, W 				// s1 = @base W
+	li t0, 0				// t0 = j = 0
+    li t1, N        		// t1 = N = 8
+    la t2, V				// t2 = @base min
+    la t3, W				// t3 = @base ind
+
+for_j:
+    bge t0, t1, end_for_j	// Salimos del bucle si j >= N
+    li t4, INT_MAX			// t4 = INT_MAX
+    sw t4, 0(t2)			// Almacenamos en memoria el contenido de t4
+    li t5, 0				// t5 = i = 0
+
+for_i:
+	bge t5, t1, end_for_i	// Salimos del bucle si i >= N
+	slli t6, t5, 2			// t6 = Desplazamiento de 2 bits (i * 4)
+    add s2, t6, s0 			// s2 = @efectiva de V[i]
+	lw s2, 0(t2)			// s2 = V[i]
+
+if:
+	bge s2, t4, end_if 		// Salta si s2 >= t4
+	sw s2, 0(t2) 			// Almacenamos en memoria el contenido de s2
+	mv t4, s2 				// min = V[i]
+	sw t5, 0(t3) 			// index = i
+
+end_if:
+	addi t5, t5, 1			// i++
+	j for_i
+
+end_for_i:
+	slli t6, t0, 2 			// t6 = Desplazamiento de 2 bits (j * 4)
+	add s2, t6, s1 			// s2 = @efectiva de W[j]
+	lw t4, 0(t3) 			// s2 = W[j]
+	slli t6, t4, 2 			// Dezplazamos ind * 4
+	add s3, t6, s0 			// s3 = @efectiva de V[index]
+	lw t4, 0(s3) 			// t4 = V[index]
+	sw t4, 0(s2) 			// W[j] = V[index]
+	li t4, INT_MAX 			// t4 = INT_MAX
+	sw t4, 0(s3) 			// V[index] = INT_MAX
+	addi t0, t0, 1 			// j++
+	j for_j
+
+end_for_j:
+	j .
+.end
+
+

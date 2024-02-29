@@ -1,0 +1,11 @@
+20:34:11 **** Incremental Build of configuration Debug for project pr2_a ****
+make all 
+'Invoking: GNU RISC-V Cross Print Size'
+riscv64-unknown-elf-size --format=berkeley "pr2_a.elf"
+   text	   data	    bss	    dec	    hex	filename
+     72	     32	      4	    108	     6c	pr2_a.elf
+'Finished building: pr2_a.siz'
+' '
+
+20:34:12 Build Finished. 0 errors, 0 warnings. (took 310ms)
+
