@@ -45,11 +45,11 @@ main:
 if:
 	bge t1, t2, eif
 	li t3, const_a
-	sw t3, 0(t0)	//res = 0xa
+	sw t3, 0(t0)
 	j fin
 eif:
 	li t3, const_b
-	sw t3, 0(t0)	//res = 0xb
+	sb t3, 0(t0)
 fin:
 	j fin
 
