@@ -7,21 +7,21 @@ start address 0x00000000
 
 Program Header:
     LOAD off    0x00001000 vaddr 0x00000000 paddr 0x00000000 align 2**12
-         filesz 0x000000e8 memsz 0x000000e8 flags r-x
+         filesz 0x000000f4 memsz 0x000000f4 flags r-x
     LOAD off    0x00002000 vaddr 0x00010000 paddr 0x00010000 align 2**12
          filesz 0x00000020 memsz 0x00000024 flags rw-
 
 Sections:
 Idx Name              Size      VMA       LMA       File off  Algn  Flags
-  0 .text             000000e8  00000000  00000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  0 .text             000000f4  00000000  00000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 .data             00000020  00010000  00010000  00002000  2**0  CONTENTS, ALLOC, LOAD, DATA
   2 .bss              00000004  00010020  00010020  00002020  2**0  ALLOC
   3 .riscv.attributes 0000001f  00000000  00000000  00002020  2**0  CONTENTS, READONLY
-  4 .debug_line       00000171  00000000  00000000  0000203f  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
-  5 .debug_info       00000026  00000000  00000000  000021b0  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
-  6 .debug_abbrev     00000014  00000000  00000000  000021d6  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
-  7 .debug_aranges    00000020  00000000  00000000  000021f0  2**3  CONTENTS, READONLY, DEBUGGING, OCTETS
-  8 .debug_str        0000003b  00000000  00000000  00002210  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  4 .debug_line       00000183  00000000  00000000  0000203f  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  5 .debug_info       00000026  00000000  00000000  000021c2  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  6 .debug_abbrev     00000014  00000000  00000000  000021e8  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  7 .debug_aranges    00000020  00000000  00000000  00002200  2**3  CONTENTS, READONLY, DEBUGGING, OCTETS
+  8 .debug_str        0000006e  00000000  00000000  00002220  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
 SYMBOL TABLE:
 00000000 l    d  .text	00000000 .text
 00010000 l    d  .data	00000000 .data
@@ -34,17 +34,19 @@ SYMBOL TABLE:
 00000000 l    d  .debug_str	00000000 .debug_str
 00000000 l    df *ABS*	00000000 ./pr3_lab.o
 00000004 l       *ABS*	00000000 N
+0000000a l       *ABS*	00000000 const_a
+0000000b l       *ABS*	00000000 const_b
 00010000 l       .data	00000000 A
 00010010 l       .data	00000000 B
 00010020 l       .bss	00000000 res
-00000054 l       .text	00000000 dotprod
-0000003c l       .text	00000000 if
-00000044 l       .text	00000000 eif
-00000050 l       .text	00000000 fin
-00000084 l       .text	00000000 while
-000000a8 l       .text	00000000 ewhile
-000000cc l       .text	00000000 mul
-000000dc l       .text	00000000 emul
+00000060 l       .text	00000000 dotprod
+00000044 l       .text	00000000 if
+00000054 l       .text	00000000 eif
+0000005c l       .text	00000000 fin
+00000090 l       .text	00000000 while
+000000b4 l       .text	00000000 ewhile
+000000d8 l       .text	00000000 mul
+000000e8 l       .text	00000000 emul
 00000000 g       .text	00000000 main
 00020000 g       *ABS*	00000000 _stack
 
@@ -54,7 +56,7 @@ Disassembly of section .text:
 
 00000000 <main>:
 main():
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:34
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:31
 .bss
 	res:  .space 4
 
@@ -63,206 +65,216 @@ main:
 	la sp, _stack	//Inicialización de la pila
    0:	00020117          	auipc	sp,0x20
    4:	00010113          	mv	sp,sp
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:35
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:32
 	la a0, A		//a0 = @base A1
    8:	00010517          	auipc	a0,0x10
    c:	ff850513          	addi	a0,a0,-8 # 10000 <A>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:36
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:33
 	la a1, A		//a1 = @base A2
   10:	00010597          	auipc	a1,0x10
   14:	ff058593          	addi	a1,a1,-16 # 10000 <A>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:37
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:34
 	li a2, N		//a2 = N
   18:	00400613          	li	a2,4
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:38
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:35
 	call dotprod
-  1c:	038000ef          	jal	ra,54 <dotprod>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:39
+  1c:	044000ef          	jal	ra,60 <dotprod>
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:36
 	mv t2,a0		//t2 = normA
   20:	00050393          	mv	t2,a0
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:41
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:38
 
 	la a0, B		//a0 = @base B1
   24:	00010517          	auipc	a0,0x10
   28:	fec50513          	addi	a0,a0,-20 # 10010 <B>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:42
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:39
 	la a1, B		//a1 = @base B2
   2c:	00010597          	auipc	a1,0x10
   30:	fe458593          	addi	a1,a1,-28 # 10010 <B>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:43
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:40
 	call dotprod
-  34:	020000ef          	jal	ra,54 <dotprod>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:44
-	mv t1,a0		//t3 = normB
+  34:	02c000ef          	jal	ra,60 <dotprod>
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:41
+	mv t1,a0		//t1 = normB
   38:	00050313          	mv	t1,a0
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:42
+	la t0, res 		//t0 = @base Res
+  3c:	00010297          	auipc	t0,0x10
+  40:	fe428293          	addi	t0,t0,-28 # 10020 <res>
 
-0000003c <if>:
+00000044 <if>:
 if():
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:47
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:46
+
 
 if:
 	bge t1, t2, eif
-  3c:	00735463          	bge	t1,t2,44 <eif>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:48
-	mv t1, t2
-  40:	00038313          	mv	t1,t2
+  44:	00735863          	bge	t1,t2,54 <eif>
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:47
+	li t3, const_a
+  48:	00a00e13          	li	t3,10
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:48
+	sw t3, 0(t0)
+  4c:	01c2a023          	sw	t3,0(t0)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:49
+	j fin
+  50:	00c0006f          	j	5c <fin>
 
-00000044 <eif>:
+00000054 <eif>:
 eif():
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:50
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:51
 eif:
-	la t0, res		//t0 = @base Res
-  44:	00010297          	auipc	t0,0x10
-  48:	fdc28293          	addi	t0,t0,-36 # 10020 <res>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:51
-	sw t1, 0(t0)
-  4c:	0062a023          	sw	t1,0(t0)
+	li t3, const_b
+  54:	00b00e13          	li	t3,11
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:52
+	sb t3, 0(t0)
+  58:	01c28023          	sb	t3,0(t0)
 
-00000050 <fin>:
+0000005c <fin>:
 fin():
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:53
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:54
 fin:
 	j fin
-  50:	0000006f          	j	50 <fin>
+  5c:	0000006f          	j	5c <fin>
 
-00000054 <dotprod>:
+00000060 <dotprod>:
 dotprod():
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:66
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:67
  * @arg a2 Longuitud del vector (N)
  * @return Producto escalar AxB
  */
 
 dotprod:
 	addi sp, sp, -24 	/////
-  54:	fe810113          	addi	sp,sp,-24 # 1ffe8 <res+0xffc8>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:67
+  60:	fe810113          	addi	sp,sp,-24 # 1ffe8 <res+0xffc8>
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:68
 	sw ra, 20(sp) 		//
-  58:	00112a23          	sw	ra,20(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:68
+  64:	00112a23          	sw	ra,20(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:69
 	sw s10, 16(sp) 		//
-  5c:	01a12823          	sw	s10,16(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:69
+  68:	01a12823          	sw	s10,16(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:70
 	sw s1, 12(sp) 		// PRÓLOGO
-  60:	00912623          	sw	s1,12(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:70
+  6c:	00912623          	sw	s1,12(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:71
 	sw s2, 8(sp) 		//
-  64:	01212423          	sw	s2,8(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:71
+  70:	01212423          	sw	s2,8(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:72
 	sw s3, 4(sp) 		//
-  68:	01312223          	sw	s3,4(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:72
+  74:	01312223          	sw	s3,4(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:73
 	sw s4, 0(sp) 		/////
-  6c:	01412023          	sw	s4,0(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:73
+  78:	01412023          	sw	s4,0(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:74
 	li s10, 0 			// s0 = acc = 0
-  70:	00000d13          	li	s10,0
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:74
+  7c:	00000d13          	li	s10,0
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:75
 	li s1, 0 			// s1 = i
-  74:	00000493          	li	s1,0
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:75
+  80:	00000493          	li	s1,0
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:76
 	mv s2, a0 			// s2 = @A1
-  78:	00050913          	mv	s2,a0
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:76
+  84:	00050913          	mv	s2,a0
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:77
 	mv s3, a1 			// s3 = @A2
-  7c:	00058993          	mv	s3,a1
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:77
+  88:	00058993          	mv	s3,a1
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:78
 	mv s4, a2 			// s4 = N
-  80:	00060a13          	mv	s4,a2
+  8c:	00060a13          	mv	s4,a2
 
-00000084 <while>:
+00000090 <while>:
 while():
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:80
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:81
 
 while:
 	bge s1, s4, ewhile
-  84:	0344d263          	bge	s1,s4,a8 <ewhile>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:81
+  90:	0344d263          	bge	s1,s4,b4 <ewhile>
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:82
 	lw a0, 0(s2)		//a0 = A[i]
-  88:	00092503          	lw	a0,0(s2)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:82
+  94:	00092503          	lw	a0,0(s2)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:83
 	lw a1, 0(s3)		//a1 = A[i]
-  8c:	0009a583          	lw	a1,0(s3)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:83
+  98:	0009a583          	lw	a1,0(s3)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:84
 	call mul
-  90:	03c000ef          	jal	ra,cc <mul>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:84
+  9c:	03c000ef          	jal	ra,d8 <mul>
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:85
 	add s10, s10, a0	//acc += mul
-  94:	00ad0d33          	add	s10,s10,a0
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:85
+  a0:	00ad0d33          	add	s10,s10,a0
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:86
 	addi s1, s1, 1		//i++
-  98:	00148493          	addi	s1,s1,1
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:86
+  a4:	00148493          	addi	s1,s1,1
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:87
 	addi s2, s2, 4 		//@A1++
-  9c:	00490913          	addi	s2,s2,4
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:87
+  a8:	00490913          	addi	s2,s2,4
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:88
 	addi s3, s3, 4 		//@A2++
-  a0:	00498993          	addi	s3,s3,4
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:88
+  ac:	00498993          	addi	s3,s3,4
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:89
 	j while
-  a4:	fe1ff06f          	j	84 <while>
+  b0:	fe1ff06f          	j	90 <while>
 
-000000a8 <ewhile>:
+000000b4 <ewhile>:
 ewhile():
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:91
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:92
 
 ewhile:
 	mv a0, s10
-  a8:	000d0513          	mv	a0,s10
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:92
+  b4:	000d0513          	mv	a0,s10
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:93
 	lw ra, 20(sp) 		// ///
-  ac:	01412083          	lw	ra,20(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:93
+  b8:	01412083          	lw	ra,20(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:94
 	lw s10, 16(sp) 		//
-  b0:	01012d03          	lw	s10,16(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:94
+  bc:	01012d03          	lw	s10,16(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:95
 	lw s1, 12(sp)		//
-  b4:	00c12483          	lw	s1,12(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:95
+  c0:	00c12483          	lw	s1,12(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:96
 	lw s2, 8(sp) 		// EPÍLOGO
-  b8:	00812903          	lw	s2,8(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:96
+  c4:	00812903          	lw	s2,8(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:97
 	lw s3, 4(sp) 		//
-  bc:	00412983          	lw	s3,4(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:97
+  c8:	00412983          	lw	s3,4(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:98
 	lw s4, 0(sp) 		//
-  c0:	00012a03          	lw	s4,0(sp)
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:98
+  cc:	00012a03          	lw	s4,0(sp)
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:99
 	addi sp, sp, 24 	// ///
-  c4:	01810113          	addi	sp,sp,24
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:99
+  d0:	01810113          	addi	sp,sp,24
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:100
 	ret
-  c8:	00008067          	ret
+  d4:	00008067          	ret
 
-000000cc <mul>:
+000000d8 <mul>:
 mul():
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:112
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:113
  * @return El resultado de la multiplicación
  * NOTA: a1 siempre pasa a ser 0
  */
 
 mul:
 	bge zero, a1, emul
-  cc:	00b05863          	blez	a1,dc <emul>
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:113
+  d8:	00b05863          	blez	a1,e8 <emul>
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:114
 	add t1,t1,a0
-  d0:	00a30333          	add	t1,t1,a0
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:114
+  dc:	00a30333          	add	t1,t1,a0
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:115
 	addi a1,a1,-1
-  d4:	fff58593          	addi	a1,a1,-1
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:115
+  e0:	fff58593          	addi	a1,a1,-1
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:116
 	j mul
-  d8:	ff5ff06f          	j	cc <mul>
+  e4:	ff5ff06f          	j	d8 <mul>
 
-000000dc <emul>:
+000000e8 <emul>:
 emul():
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:118
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:119
 
 emul:
 	mv a0,t1		//a0 = res
-  dc:	00030513          	mv	a0,t1
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:119
+  e8:	00030513          	mv	a0,t1
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:120
 	li t1, 0		//t1 = res = 0
-  e0:	00000313          	li	t1,0
-C:\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:120
+  ec:	00000313          	li	t1,0
+C:\Users\majod\OneDrive\Documents\GitHub\riscv-ws-fc2\FC2practicasWS\pr3_lab\Debug/../pr3_lab.asm:121
 	ret
-  e4:	00008067          	ret
+  f0:	00008067          	ret

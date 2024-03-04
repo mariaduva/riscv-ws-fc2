@@ -15,10 +15,13 @@
 .extern _stack
 .global main
 .equ N, 4
+.equ const_a, 10
+.equ const_b, 11
 
 .data
-A:      .word 1,6,2,3
-B:      .word 1,1,1,1
+A:      	.word 1,6,2,3
+B:      	.word 1,1,1,1
+
 
 .bss
 	res:  .space 4
@@ -35,14 +38,18 @@ main:
 	la a0, B		//a0 = @base B1
 	la a1, B		//a1 = @base B2
 	call dotprod
-	mv t1,a0		//t3 = normB
+	mv t1,a0		//t1 = normB
+	la t0, res 		//t0 = @base Res
+
 
 if:
 	bge t1, t2, eif
-	mv t1, t2
+	li t3, const_a
+	sw t3, 0(t0)
+	j fin
 eif:
-	la t0, res		//t0 = @base Res
-	sw t1, 0(t0)
+	li t3, const_b
+	sb t3, 0(t0)
 fin:
 	j fin
 

@@ -50,6 +50,8 @@
 .extern _stack
 .global main
 .equ N, 4
+.equ const_a, 10
+.equ const_b, 11
 
 .data
     A:      .word 3,5,1,9
@@ -109,11 +111,13 @@ ewhile:
  */
 if:
 	bge t5,t6,eif
-	mv t5,t6
+	li t7, const_b
+	sw t7, 0(t0)
+	j fin
 
 eif:
-	sw t5, 0(t0)
-
+	li t7, const_a
+	sw t7, 0(t0)
 fin:
 	j .
 
