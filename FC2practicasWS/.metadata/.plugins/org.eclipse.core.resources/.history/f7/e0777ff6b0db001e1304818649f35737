@@ -61,8 +61,8 @@
 .text
 main:
 	la sp, _stack
-	la s11,A 		//a1 = @base A
-	la s10,B		//a2 = @base B
+	la a1,A 		//a1 = @base A
+	la a2, B		//a2 = @base B
 	la t0,res		//t0 = @base res
 
 	mv t1,zero		//t1 = res = 0
@@ -71,17 +71,9 @@ main:
 	mv t2,zero		//t2 = i = 0
 	li s3,N			//s3 = N
 
-
-	mv a1, s11
-	mv a2, s11
+	mv t3,zero		//t3 = efectivaA = 0
+	mv t4,zero		//t4 = efectivaB = 0
 	call dotprod
-
-	mv t5, a0
-
-	mv a1, s10
-	mv a2, s10
-	call dotprod
-	mv t6, a0
 
 if:
 	bge t5,t6,eif
@@ -102,10 +94,7 @@ eif:
 dotprod:
 	addi sp,sp,-4
 	lw ra,0(sp)
-	mv t3,zero		//t3 = efectivaA = 0
-	mv t4,zero		//t4 = efectivaB = 0
 while:
-
 	bge t2,s3,ewhile	//Salimos del while si i>=N
 	slli t3,t2,2		//"Salto" A
 	add t3,t3,a1		//Actualizamos efectiva A

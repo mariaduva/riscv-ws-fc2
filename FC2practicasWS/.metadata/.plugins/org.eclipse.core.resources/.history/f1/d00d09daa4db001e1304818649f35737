@@ -29,8 +29,8 @@ B:      	.word 1,1,1,1
 .text
 main:
 	la sp, _stack	//Inicialización de la pila
-	la a0, A		//a0 = @base A
-	la a1, B		//a1 = @base B
+	la a0, A		//a0 = @base A1
+	la a1, A		//a1 = @base A2
 	li a2, N		//a2 = N
 	call dotprod
 	mv t2,a0		//t2 = normA
@@ -137,14 +137,10 @@ vsum: // a0 = @baseV --- a1 = N
 	li t6, 0 // t6 = s = 0
 for:
 	bge t5, a1, efor
-	mv s4, zero 	// s4 = efectiva V = 0
-	slli s4, t5, 2	// desplazamineto V
-	add s4, s4, a0	// s4 = dir V[i]
-	lw s5, 0(s4)	// s5 = V[i]
-	add t6, t6, s5
-	addi t5, t5, 1	//
+	slli
+	add t6, t6,
 efor:
-	mv a0, s4
-	ret
+
+evsum:
 
 

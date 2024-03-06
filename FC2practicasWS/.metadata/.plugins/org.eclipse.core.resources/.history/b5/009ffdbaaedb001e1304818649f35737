@@ -60,9 +60,9 @@
 
 .text
 main:
-	la sp, _stack
-	la s11,A 		//a1 = @base A
-	la s10,B		//a2 = @base B
+
+	la s1,A 		//s1 = @base A
+	la s2, B		//s2 = @base B
 	la t0,res		//t0 = @base res
 
 	mv t1,zero		//t1 = res = 0
@@ -71,18 +71,42 @@ main:
 	mv t2,zero		//t2 = i = 0
 	li s3,N			//s3 = N
 
+	mv t3,zero		//t3 = efectivaA = 0
+	mv t4,zero		//t4 = efectivaB = 0
 
-	mv a1, s11
-	mv a2, s11
-	call dotprod
+/**
+ * Recorremos ambos vectores utilizando la misma i y almacenamos el resultado
+ * de sus productos escalares en t5 (NormA) y t6 (NormB)
+ */
+while:
 
-	mv t5, a0
 
-	mv a1, s10
-	mv a2, s10
-	call dotprod
-	mv t6, a0
+	bge t2,s3,ewhile	//Salimos del while si i>=N
+	slli t3,t2,2		//"Salto" A
+	add t3,t3,s1		//Actualizamos efectiva A
+	slli t4,t2,2		//"Salto" B
+	add t4,t4,s2		//Actualizamos efectiva B
 
+	lw a1,0(t3)			//a1 = A[i]
+	mv a2, a1			//a2 = A[i]
+	mv t1,zero			//t1 = mul = 0 (Antes de cada llamada a mul)
+	call mul
+	add t5,t5,a0		//NormaA += res
+
+	lw a2,0(t4)			//a2 = B[i]
+	mv a1, a2			//a1 = B[i]
+	mv t1,zero
+	call mul
+	add t6,t6,a0		//NormaB += res
+
+	addi t2,t2,1		//i++
+	j while
+
+ewhile:
+
+/**
+ * Comparamos ambos productos ecalares y almacenanos solo el mayor en t1
+ */
 if:
 	bge t5,t6,eif
 	li s4, CONST_B
@@ -91,40 +115,8 @@ if:
 eif:
 	li s4, CONST_A
 	sw s4, 0(t0)
-
-	j.
-.end
-
-/**
- * Recorremos ambos vectores utilizando la misma i y almacenamos el resultado
- * de sus productos escalares en t5 (NormA) y t6 (NormB)
- */
-dotprod:
-	addi sp,sp,-4
-	lw ra,0(sp)
-	mv t3,zero		//t3 = efectivaA = 0
-	mv t4,zero		//t4 = efectivaB = 0
-while:
-
-	bge t2,s3,ewhile	//Salimos del while si i>=N
-	slli t3,t2,2		//"Salto" A
-	add t3,t3,a1		//Actualizamos efectiva A
-	slli t4,t2,2		//"Salto" B
-	add t4,t4,a2		//Actualizamos efectiva B
-	lw s1,0(t3)			//s1 = A[i]
-	lw s2,0(t4)			//s2 = B[i]
-
-	call mul
-
-	addi t2,t2,1		//i++
-	j while
-
-ewhile:
-	lw ra,0(sp)
-	addi sp,sp,4
-	ret
-
-
+fin:
+	j .
 
 /**
  * MUL
@@ -138,13 +130,11 @@ ewhile:
  */
 
 mul:
-	mv t1,zero
-whilemul:
-	bge zero,s2,ewhilemul
-	add t1,t1,s1
-	addi s2,s2,-1
+	bge zero,a2,emul
+	add t1,t1,a1
+	addi a2,a2,-1
 	j mul
 
-ewhilemul:
+emul:
 	mv a0,t1		//a0 = res
 	ret
