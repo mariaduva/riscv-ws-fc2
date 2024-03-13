@@ -14,6 +14,7 @@
 .global i_sqrt
 
 eucl_dist:
+
 	//la sp, _stack		// En este caso no hace falta inicializar la pila
 	addi sp, sp, -20 	///
 	sw ra, 16(sp) 		//
@@ -27,6 +28,7 @@ eucl_dist:
 	li s3, 0 			// s3 = i = 0
 
 eucl_for:
+
 	bge s3, s1, e_eucl_for
 	lw a0, 0(s0) 		// a0 = W[i]
 	lw a1, 0(s0) 		// a1 = W[i]
@@ -37,6 +39,7 @@ eucl_for:
 	j eucl_for
 
 e_eucl_for:
+
 	mv a0, s2
 	call i_sqrt
 	lw ra, 16(sp) 		///
@@ -49,11 +52,13 @@ e_eucl_for:
 	ret
 
 guardar:
+
 	sb a0, 0(a1) 		// Gruardamos un byte
 
 	ret
 
 i_sqrt:
+
 	addi sp, sp, -12 	///
 	sw s0, 8(sp) 		//
 	sw s1, 4(sp) 		//PRÓLOGO
@@ -63,6 +68,7 @@ i_sqrt:
 	mv s1, a0
 
 while_sqrt:
+
 	mv a0, s0
 	mv a1, s0
 
@@ -73,6 +79,7 @@ while_sqrt:
 	j while_sqrt
 
 e_i_sqrt:
+
 	mv a0, s0
 	lw s0, 8(sp) 		///
 	lw s1, 4(sp) 		//EPÍLOGO
@@ -125,8 +132,7 @@ if_b:
 while_idiv:
 	blt s1, s0, if_sign			// while (b > a)
 	sub s0, s0, s1				// a -= b
-	addi s2, s2, 1
-					// c++
+	addi s2, s2, 1				// c++
 	j while_idiv
 
 if_sign:

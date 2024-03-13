@@ -1,7 +1,14 @@
 /*---------------------------------------------------------------------
 **
-**  FICHERO:
-**    pr4.c  13/03/2024
+**  Fichero:
+**    pr4.c  19/10/2022
+**
+**    (c) Daniel Báscones García
+**    Fundamentos de Computadores II
+**    Facultad de Informática. Universidad Complutense de Madrid
+**
+**  Propósito:
+**    Fichero de código para la práctica 4
 **
 **-------------------------------------------------------------------*/
 
@@ -38,7 +45,13 @@ int mul(int a, int b) {
 /**
  * Función simple que obtiene la raíz cuadrada iterativamente
  */
-extern int i_sqrt(int a);
+extern int i_sqrt(int a);/* {
+	int root = 0;
+	while (mul(root, root) < a) {
+		root++;
+	}
+	return root;
+}*/
 
 /**
  * Calculamos distancia euclídea. Sumamos todos los cuadrados
@@ -47,7 +60,7 @@ extern int i_sqrt(int a);
 extern int eucl_dist(int w [], int size);
 
 int rmse ( int v[], int n){
-	return (eucl_dist(v, n)/ i_sqrt(n));
+	return (eucl_dist(v,n)/ i_sqrt(n));
 }
 
 /**

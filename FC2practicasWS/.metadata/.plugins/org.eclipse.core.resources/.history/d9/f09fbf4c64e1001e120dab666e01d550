@@ -1,6 +1,6 @@
 /*---------------------------------------------------------------------
 **
-**  FICHERO:
+**  Fichero:
 **    pr4.c  13/03/2024
 **
 **-------------------------------------------------------------------*/
@@ -47,7 +47,7 @@ extern int i_sqrt(int a);
 extern int eucl_dist(int w [], int size);
 
 int rmse ( int v[], int n){
-	return (eucl_dist(v, n)/ i_sqrt(n));
+	return (eucl_dist(v,n)/ i_sqrt(n));
 }
 
 /**

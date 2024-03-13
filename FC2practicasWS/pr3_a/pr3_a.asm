@@ -3,7 +3,6 @@
 **  Fichero:
 **    pr3_a.asm
 **
-**
 **  Notas de diseño:
 **
 **	int mul(int a, int b) {
